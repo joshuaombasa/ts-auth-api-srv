@@ -3,16 +3,14 @@ import { CustomError } from './custom-error';
 
 class RequestValidationError extends CustomError {
   statusCode = 400;
-
   constructor(public errors: ValidationError[]) {
-    super('Invalid request parameters');
+    super();
+
     Object.setPrototypeOf(this, RequestValidationError.prototype);
   }
 
-  serializeError() {
-    return this.errors.map((error) => ({
-      message: error.msg,
-    }));
+  serializeError(): { message: string; field?: string | undefined }[] {
+    return this.errors.map((error) => ({ message: error.msg }));
   }
 }
 
