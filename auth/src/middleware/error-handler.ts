@@ -1,6 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
-import { RequestValidationError } from '../errors/request-validation-error';
-import { DatabaseConnectionError } from '../errors/database-connection-error';
+import express, { Request, Response, NextFunction } from 'express';
 import { CustomError } from '../errors/custom-error';
 
 const errorHandler = (
@@ -15,7 +13,7 @@ const errorHandler = (
       .send({ errors: error.serializeError() });
   }
 
-  response.status(400).send({ errors: [{ message: 'Something went wrong' }] });
+  response.status(400).send({ errors: [{ message: 'something went wrong' }] });
 };
 
 export { errorHandler };
