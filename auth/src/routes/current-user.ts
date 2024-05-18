@@ -1,14 +1,14 @@
 import express, { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { currentUser } from '../middleware/current-user';
+import { currentuser } from '../middleware/current-user';
 
 const currentUserRouter = express.Router();
 
 currentUserRouter.get(
   '/api/users/currentuser',
-  currentUser,
+  currentuser,
   async (request: Request, response: Response) => {
-    response.send({ currentUser: request.currentUser || null });
+
+    response.send({currentuser: request.currentUser || null})
   }
 );
 
