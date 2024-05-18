@@ -1,10 +1,8 @@
-import express, { NextFunction, Request, Response } from 'express';
-
+import express, { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-
 interface UserPayload {
-  id: string;
   email: string;
+  password: string;
 }
 
 declare global {
@@ -15,7 +13,7 @@ declare global {
   }
 }
 
-const currentUser = async (
+const currentuser = (
   request: Request,
   response: Response,
   next: NextFunction
@@ -24,11 +22,10 @@ const currentUser = async (
     return next();
   }
 
-  try {
-    const payload = jwt.verify(request.session?.jwt, 'asdf') as UserPayload;
-    request.currentUser = payload;
-  } catch (error) {}
+  const payload = jwt.verify(request.session.jwt, 'asdf') as UserPayload;
+  request.currentUser = payload;
+
   next();
 };
 
-export { currentUser };
+export { currentuser };
