@@ -1,10 +1,15 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+
 
 const signoutRouter = express.Router();
 
-signoutRouter.get('/api/users/signout', async (request, response) => {
-  request.session = null;
-  response.send({});
-});
+signoutRouter.get(
+  '/api/users/signout',
+  async (request: Request, response: Response) => {
+     request.session = null
+
+     response.send({})
+  }
+);
 
 export { signoutRouter };
