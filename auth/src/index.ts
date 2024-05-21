@@ -1,8 +1,12 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import 'express-async-errors';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
+import cors from 'cors';
 
+const PORT = 3000;
+
+import { currentUserRouter } from './routes/current-user';
 import { signupRouter } from './routes/signup';
 import { errorHandler } from './middleware/error-handler';
 import { NotFoundError } from './errors/not-found-error';
@@ -14,14 +18,12 @@ const PORT = 4000;
 
 const app = express();
 
-app.set('trust proxy', true);
+app.set('trust proxy', true)
 
-app.use(
-  cookieSession({
-    signed: false,
-    secure: false,
-  })
-);
+app.use(cookieSession({
+  secure: false,
+  signed:false
+}))
 
 app.use(express.json());
 
@@ -37,14 +39,17 @@ app.all('*', (request: Request, response: Response) => {
 app.use(errorHandler);
 
 const start = async () => {
-  await mongoose.connect(
-    `mongodb://127.0.0.1:27017/tiketi7-auth?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.1`
-  );
-  console.log('connected to mongodb');
+  try {
+    await mongoose.connect(
+      'mongodb://127.0.0.1:27017/auth4?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.1'
+    );
+  } catch (error) {
+    console.error(error);
+  }
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 };
 
-start();
+start()
