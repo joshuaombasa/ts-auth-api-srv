@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { validateRequest } from '../middleware/validate-request';
-import { BadRequestError } from '../errors/bad-request-error';
+import { validateRequest, BadRequestError } from '@jotiketi/common';
+
 import { User } from '../models/user';
 import { Password } from '../services/password';
 import jwt from 'jsonwebtoken';
