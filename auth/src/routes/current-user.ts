@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { currentuser } from '../middleware/current-user';
+import { currentuser } from '@jotiketi/common';
 
 const currentUserRouter = express.Router();
 
