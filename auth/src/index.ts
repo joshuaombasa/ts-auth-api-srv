@@ -66,8 +66,8 @@ import { currentUserRouter } from './routes/current-user';
 import { signupRouter } from './routes/signup';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
-import { errorHandler } from './middleware/error-handler';
-import { NotFoundError } from './errors/not-found-error';
+import { errorHandler, NotFoundError } from '@jotiketi/common';
+
 
 
 const app = express();
@@ -81,7 +81,7 @@ app.use(cors({
 }));
 
 app.use(cookieSession({
-  // name: 'session',
+  name: 'session',
   secure: false, // Set to true in production
   signed: false,
 }));
@@ -93,9 +93,9 @@ app.use(signupRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 
-// app.all('*', () => {
-//   throw new NotFoundError();
-// });
+app.all('*', () => {
+  throw new NotFoundError('Uknown endpoint');
+});
 
 app.use(errorHandler);
 
