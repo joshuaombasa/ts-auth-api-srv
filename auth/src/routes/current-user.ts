@@ -1,14 +1,20 @@
 import express, { Request, Response } from 'express';
 import { currentuser } from '@jotiketi/common';
 
+interface CurrentUserRequest extends Request {
+  currentUser?: {
+    id: string;
+    email: string;
+  };
+}
+
 const currentUserRouter = express.Router();
 
 currentUserRouter.get(
   '/api/users/currentuser',
   currentuser,
-  async (request: Request, response: Response) => {
-
-    response.send({currentuser: request.currentUser || null})
+  async (req: CurrentUserRequest, res: Response) => {
+    res.send({ currentUser: req.currentUser || null });
   }
 );
 
